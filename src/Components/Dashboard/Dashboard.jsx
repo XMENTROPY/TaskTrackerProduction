@@ -1,16 +1,28 @@
-import React from 'react'
-import { test } from '../../Util/API'
+import React, { useState, useEffect } from 'react'
 import { Calendar } from '../Common/Calendar/Calendar'
 import { Navbar } from '../Common/Navbar/Navbar'
-
+import { post } from '../../Util/API'
 
 export const Dashboard = () => {
-	const data = test()
+
+	const [data, setData] = useState('test')
+
+	const createTable = (data) => {
+		post('Create', data).then((r) => {
+			console.log(r)
+		}).catch((e) => {
+			console.log(e)
+			console.log('postError')});
+			
+	}
+
+	createTable('data')
+
 	return (
 		<div>
 			<Navbar />
             <Calendar />
-			{data}
+
 		</div>
 	)
 }

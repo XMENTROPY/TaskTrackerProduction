@@ -26,4 +26,16 @@ export async function getTable(tableName) {
   }
 }
 
-
+export async function createTable(tableName, tableStructure) {
+  try {
+    let pool = await sql.connect(config);
+    const table = new sql.Table('table_name')
+    table.create = true
+    table.columns.add('a', sql.Int, {nullable: true })
+    table.columns.add('b', sql.VarChar(50), {nullable: true})
+    table.rows.add(777, 'test')
+    }
+    catch (error) {
+      console.log(error)
+    }
+}

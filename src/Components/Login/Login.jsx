@@ -1,15 +1,26 @@
 import React from 'react'
+import { get } from '../../Util/API'
 import { Navbar } from '../Common/Navbar/Navbar'
-import { getTable } from '../../Util/DatabaseFunctions'
+import { useEffect, useState } from 'react'
 
 export const Login = () => {
 
-	const testf = getTable('test');
+	const [testData, setTestData] = useState()
+
+	useEffect(()=>{
+		get('test').then((e) => {
+			console.log(e.data)
+			setTestData(e.data.id)
+		})
+		.catch((error) => {
+			console.log(error.message)
+		})
+	},[])
 
 	return (
 		<div>
             <Navbar/>
-			{testf}
+			{testData}
 		</div>
 	)
 }
