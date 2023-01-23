@@ -5,7 +5,7 @@ import { post } from '../../Util/API'
 
 export const Dashboard = () => {
 
-	const [data, setData] = useState('test')
+	var [data, setData] = useState('test')
 
 	const createTable = (data) => {
 		post('Create', data).then((r) => {
@@ -22,7 +22,6 @@ export const Dashboard = () => {
 		<div>
 			<Navbar />
             <Calendar />
-
 		</div>
 	)
 }

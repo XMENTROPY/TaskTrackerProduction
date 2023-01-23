@@ -1,13 +1,20 @@
 import React from 'react'
 
-export const FieldEntry = (FieldLabel) => {
+export const FieldEntry = (props) => {
+
+  
 
 	return (
 		<div>
-            {FieldLabel}
-            <form>
-                <input type='text' placeholder='City' id='message5' onChange={(e) => setMessage5(e.target.value)} value={message5}/>
-            </form>
+      {'col'&props}
+      <br></br>
+      <input type='text' id = {props.value[1]}/>
+      <br></br>
+      Data Type
+      <br></br>
+      <input type='text' id = {props.value[1]}/>
+      <br></br>
+      <br></br>
 		</div>
 	)
 }

@@ -29,11 +29,17 @@ export async function getTable(tableName) {
 export async function createTable(tableName, tableStructure) {
   try {
     let pool = await sql.connect(config);
-    const table = new sql.Table('table_name')
+    const table = new sql.Table(tableName)
     table.create = true
-    table.columns.add('a', sql.Int, {nullable: true })
-    table.columns.add('b', sql.VarChar(50), {nullable: true})
-    table.rows.add(777, 'test')
+    for (col in tableStructure) {
+      table.columns.add(col.name, col.dataType, {nullable: true })
+    }
+    const request = new sql.Request()
+    request.bulk(table, (err, result) => {
+    console.log(err)
+    console.log(result)
+})
+   
     }
     catch (error) {
       console.log(error)
