@@ -1,37 +1,32 @@
-import React from 'react'
-import { useState } from 'react';
-import { FieldEntry } from '../Common/FieldEntry/FieldEntry'
+import React, { useState } from 'react'
 import { Navbar } from '../Common/Navbar/Navbar'
-import ReactDOM from 'react-dom';
+import { post } from '../../Util/API'
 
 export const AddList = () => {
-	const [inputs, setInputs] = useState({});
 
-	const handleChange = (event) => {
-		console.log('test')
-	  const name = event.target.name;
-	  const value = event.target.value;
-	  setInputs(values => ({...values, [name]: value}))
-	}
-  
+	var [tableStructure, setTableStructure] = useState([])
+
+
 	const handleSubmit = (event) => {
 	  event.preventDefault();
-	  
+	  console.log(document.getElementById('tableStructureJson').value)
+	  setTableStructure(document.getElementById('tableStructureJson').value)
+	  createTable(tableStructure)
 	}
 
-	const getElem = () => {
-		try {return(console.log(document.getElementById('1').value))}
-		catch{console.log('error')}
+	const createTable = (tableStructure) => {
+		post('Create',tableStructure).then((r) => {
+			console.log(r)
+		}).catch((e) => {
+			console.log(e)
+			console.log('postError')});
 	}
-
-	var test = Array(6).push(<FieldEntry value = {['Col 1', '1']}/>)
 
 	return (
 		<div>
             <Navbar />
 			<form onSubmit={handleSubmit}>
-				{test}
-
+				<textarea id='tableStructureJson' onSubmit={handleSubmit}></textarea>
 				<input type="submit" />
 			</form>
 		</div>
